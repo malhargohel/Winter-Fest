@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAPS Winter Fest 2025 - Sydney</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        /* --- Smooth Scrolling --- */
+        html { scroll-behavior: smooth; }
+
+        /* --- CSS Variables --- */
+        :root {
+            --ice-deep: #0b1e3d;
+            --ice-mid: #102a4a;
+            --ice-panel: #132f52;
+            --ice-card: rgba(255,255,255,0.06);
+            --frost-white: #eaf4fc;
+            --frost-light: #c8e2f5;
+            --accent-blue: #5eb8f7;
+            --accent-cyan: #7ee8fa;
+            --accent-gold: #f0c854;
+            --text-primary: #f0f6fb;
+            --text-secondary: #b4cedf;
+            --snow-particle: rgba(255,255,255,0.6);
+        }
+
+        /* --- Reset & Base --- */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--ice-deep);
+            color: var(--text-primary);
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Snowfall Background --- */
+        .snowfall {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: var(--snow-particle);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0%   { opacity: 0; transform: translateY(-10px) rotate(0deg); }
+            10%  { opacity: 1; }
+            90%  { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* --- Frost Texture Overlay --- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 0%, rgba(94,184,247,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 100%, rgba(126,232,250,0.06) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Utility --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 70px 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            color: var(--accent-cyan);
+            margin-bottom: 40px;
+            letter-spacing: 0.02em;
+        }
+
+        /* --- Buttons --- */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: var(--ice-deep);
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 4px 20px rgba(94,184,247,0.25);
+            letter-spacing: 0.03em;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(94,184,247,0.4);
+        }
+
+        .button-outline {
+            background: transparent;
+            border: 2px solid var(--frost-light);
+            color: var(--frost-light);
+            box-shadow: none;
+        }
+
+        .button-outline:hover {
+            background: var(--frost-light);
+            color: var(--ice-deep);
+            box-shadow: 0 4px 20px rgba(200,226,245,0.2);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 12px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11,30,61,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header-logo-img {
+            height: 58px;
+            width: auto;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-link {
+            color: var(--frost-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .nav-link:hover { color: var(--accent-cyan); }
+
+        .header-nav .button { margin-top: 0; font-size: 0.9rem; padding: 10px 28px; min-height: 44px; }
+
+        /* --- Hamburger --- */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .hamburger-menu span {
+            width: 2rem;
+            height: 0.2rem;
+            background: var(--frost-white);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            transform-origin: 1px;
+        }
+
+        /* --- Hero Banner --- */
+        .hero-banner {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Frost glow beneath banner */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -40px; left: 10%;
+            width: 80%; height: 80px;
+            background: radial-gradient(ellipse, rgba(126,232,250,0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* --- Intro Section --- */
+        .intro-section {
+            padding-top: 50px;
+            padding-bottom: 30px;
+        }
+
+        .intro-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto 20px auto;
+            color: var(--text-secondary);
+        }
+
+        .intro-section .highlight {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        /* --- Attractions Grid --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            min-height: 340px;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .grid-item img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 40px rgba(94,184,247,0.2);
+        }
+
+        .attraction-title {
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 1.15rem;
+            margin-top: 16px;
+            margin-bottom: 0;
+        }
+
+        .section-footer-text {
+            margin-top: 45px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--frost-light);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* --- CTA / Panel Sections --- */
+        .panel-section {
+            background: var(--ice-panel);
+            padding: 70px 24px;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .panel-section h2 { color: var(--accent-cyan); }
+
+        .event-details p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .event-details .detail-highlight {
+            font-size: 1.3rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .event-details a {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 4px;
+            color: var(--accent-blue);
+            transition: color 0.3s;
+        }
+
+        .event-details a:hover { color: var(--accent-cyan); }
+
+        /* --- KDC Grid (Desktop) --- */
+        .kdc2024-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+        }
+
+        .kdc2024-grid .grid-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 16px;
+            display: block;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .kdc2024-grid .grid-item img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 40px rgba(94,184,247,0.2);
+        }
+
+        /* --- KDC Carousel (Mobile) --- */
+        .kdc-carousel-wrapper { display: none; }
+
+        .kdc-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 25px auto;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .carousel-img {
+            display: none;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: opacity 0.5s;
+            position: absolute;
+            left: 0; top: 0;
+        }
+
+        .carousel-img.active {
+            display: block;
+            position: relative;
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .carousel-indicators .indicator {
+            width: 10px;
+            height: 10px;
+            background: var(--frost-light);
+            opacity: 0.4;
+            border-radius: 50%;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .carousel-indicators .indicator.active {
+            opacity: 1;
+            background: var(--accent-cyan);
+            transform: scale(1.2);
+        }
+
+        /* --- About Section --- */
+        .about-text {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            max-width: 680px;
+            margin: 0 auto 24px auto;
+            color: var(--text-secondary);
+        }
+
+        .about-text strong {
+            color: var(--frost-white);
+        }
+
+        .about-text-justify {
+            text-align: justify;
+        }
+
+        /* --- Title Band --- */
+        .title-band {
+            padding: 50px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-main {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.25;
+            letter-spacing: 0.02em;
+        }
+
+        .logo-main .winter { color: var(--accent-blue); }
+        .logo-main .fest { color: var(--accent-cyan); }
+        .logo-main .year { color: var(--accent-gold); }
+
+        /* --- Snowflake Dividers --- */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin: 10px auto;
+            opacity: 0.35;
+        }
+
+        .divider span {
+            font-size: 1rem;
+            color: var(--frost-light);
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: var(--frost-light);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px 20px;
+            background: #071428;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-baps-img {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            color: var(--ice-deep);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(94,184,247,0.3);
+        }
+
+        .copyright {
+            margin-top: 16px;
+            color: #6a8ca8;
+            font-size: 0.85rem;
+        }
+
+        /* --- Entrance Animations --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive --- */
+        @media screen and (max-width: 768px) {
+            .header-nav {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                gap: 22px;
+                background: rgba(11,30,61,0.97);
+                backdrop-filter: blur(16px);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 24px 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+            }
+
+            .header-nav.is-active {
+                display: flex;
+                max-height: 500px;
+            }
+
+            .hamburger-menu { display: flex; }
+
+            .grid { grid-template-columns: 1fr; gap: 22px; }
+            .logo-main { font-size: 2rem; }
+            h2 { font-size: 2rem; }
+
+            .button-group {
+                flex-direction: row !important;
+                gap: 14px !important;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .button.button-outline svg {
+                display: inline-block;
+                vertical-align: middle;
+                width: 22px;
+                height: 22px;
+                margin: 0;
+            }
+
+            .kdc2024-grid { display: none !important; }
+            .kdc-carousel-wrapper { display: block; }
+
+            .footer-baps-img { max-width: 100%; padding-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Snowfall particles -->
+<div class="snowfall" id="snowfall"></div>
+
+<header>
+    <a href="https://www.baps.org">
+        <img src="Baps_logo-WHITE.webp" alt="BAPS Logo" class="header-logo-img">
+    </a>
+    <button class="hamburger-menu" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <nav class="header-nav">
+        <a href="#attractions" class="nav-link">Attractions</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#tickets" class="button">Register Now</a>
+    </nav>
+</header>
+
+<!-- Hero Banner Placeholder -->
+<div class="hero-banner">
+    <!-- Replace with your Winter Fest banner image -->
+    <div style="background: linear-gradient(135deg, #0d2b4e 0%, #153d6b 40%, #1a4a7a 70%, #0b1e3d 100%); padding: 80px 20px; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 30% 40%, rgba(126,232,250,0.12), transparent 50%), radial-gradient(circle at 70% 60%, rgba(94,184,247,0.1), transparent 50%);"></div>
+        <div style="position: relative; z-index: 1;">
+            <div style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent-cyan); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px;">BAPS Sydney Presents</div>
+            <div class="logo-main" style="font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: 12px;">
+                <span class="winter">WINTER</span> <span class="fest">FEST</span> <span class="year">2025</span>
+            </div>
+            <div class="divider"><span>❄</span></div>
+            <p style="font-size: 1.15rem; color: var(--frost-light); margin-top: 16px; letter-spacing: 0.08em;">Sydney&rsquo;s Coolest Family Celebration</p>
+        </div>
+    </div>
+</div>
+
+<main>
+    <!-- What is Winter Fest? -->
+    <section class="container intro-section fade-up">
+        <h2>What is Winter Fest?</h2>
+        <p>
+            Embrace the magic of the winter season at the <strong style="color: var(--frost-white);">BAPS Winter Fest</strong> — an unforgettable family event rooted in celebrating community, culture, and the warmth of togetherness even on the coolest of days.
+        </p>
+        <p>
+            Prepare for a day brimming with engaging games, enriching experiences, and exciting winter-themed activities that connect your family with joy, laughter, and the spirit of unity. Whether you're deeply connected to Indian traditions or simply eager to enjoy a wonderful day out.
+        </p>
+        <p class="highlight" style="color: var(--accent-cyan); font-weight: 700;">
+            We are delighted to welcome you to Winter Fest 2025.
+        </p>
+    </section>
+
+    <!-- Attractions -->
+    <section id="attractions" class="container fade-up">
+        <h2>ATTRACTIONS</h2>
+        <div class="grid">
+            <div class="grid-item">
+                <img src="Att_Activity.jpg" alt="Fun Activities">
+                <p class="attraction-title">Fun Activities</p>
+            </div>
+            <div class="grid-item">
+                <img src="Att_FacePainting.jpg" alt="Face Painting">
+                <p class="attraction-title">Face Painting</p>
+            </div>
+            <div class="grid-item">
+                <img src="Att_Prasang.jpg" alt="Engaging Exhibitions">
+                <p class="attraction-title">Engaging Exhibitions</p>
+            </div>
+            <div class="grid-item">
+                <img src="Att_Show.jpg" alt="Winter Show">
+                <p class="attraction-title">Winter Show</p>
+            </div>
+            <div class="grid-item">
+                <img src="Attractions_Fire.jpg" alt="Fireworks">
+                <p class="attraction-title">Breathtaking Fireworks</p>
+            </div>
+            <div class="grid-item">
+                <img src="Food_Stall.jpg" alt="Food Stalls">
+                <p class="attraction-title">Food Stalls</p>
+            </div>
+        </div>
+        <p class="section-footer-text">THERE IS SOMETHING FOR EVERYONE TO ENJOY! ❄</p>
+    </section>
+
+    <!-- Registration -->
+    <section id="tickets" class="panel-section fade-up">
+        <h2>REGISTRATION</h2>
+        <div class="event-details">
+            <p class="detail-highlight">Friday 18th April 2025</p>
+            <p class="detail-highlight">1pm – 7pm</p>
+            <a href="https://www.google.com/maps?q=BAPS+Swaminarayan+Hindu+Mandir+230+Aldington+Road+Kemps+Creek+NSW+2178" target="_blank" rel="noopener">
+                BAPS Swaminarayan Hindu Mandir &amp; Cultural Precinct<br>
+                230 Aldington Road<br>
+                Kemps Creek NSW 2178
+            </a>
+            <p style="margin-top: 16px;">Kids Entry Fee – $5.00</p>
+            <p>Adults Entry Fee – $5.00</p>
+        </div>
+        <a href="#" class="button">REGISTER NOW</a>
+    </section>
+
+    <!-- Past Event Gallery -->
+    <section id="gallery" class="container fade-up">
+        <h2>Past Event Gallery</h2>
+        <div class="kdc2024-grid">
+            <div class="grid-item">
+                <img src="Santo_Abhishek.jpg" alt="Santo Abhishek ceremony">
+            </div>
+            <div class="grid-item">
+                <img src="Prasang_Station.jpg" alt="Prasang Station exhibit">
+            </div>
+            <div class="grid-item">
+                <img src="Kid_BBall.jpg" alt="Kid playing basketball game">
+            </div>
+            <div class="grid-item">
+                <img src="Rides.jpg" alt="Children on a carnival ride">
+            </div>
+            <div class="grid-item">
+                <img src="Fireworks.jpg" alt="Fireworks display at night">
+            </div>
+            <div class="grid-item">
+                <img src="Show.jpg" alt="On-stage performance">
+            </div>
+        </div>
+        <!-- Mobile Carousel -->
+        <div class="kdc-carousel-wrapper">
+            <div class="kdc-carousel">
+                <img src="Santo_Abhishek.jpg" alt="Santo Abhishek ceremony" class="carousel-img active">
+                <img src="Prasang_Station.jpg" alt="Prasang Station exhibit" class="carousel-img">
+                <img src="Kid_BBall.jpg" alt="Kid playing basketball game" class="carousel-img">
+                <img src="Rides.jpg" alt="Children on a carnival ride" class="carousel-img">
+                <img src="Fireworks.jpg" alt="Fireworks display at night" class="carousel-img">
+                <img src="Show.jpg" alt="On-stage performance" class="carousel-img">
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+        </div>
+        <a href="https://www.baps.org/News/2024/Kids-Diwali-Celebration-2024-27269.aspx" class="button">VIEW GALLERY</a>
+    </section>
+
+    <!-- About BAPS Winter Fest -->
+    <section class="panel-section fade-up">
+        <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
+            <h2>BAPS Winter Fest: Warmth in the Cold</h2>
+            <p class="about-text">
+                The Winter Fest is proudly <strong>hosted by BAPS Swaminarayan Sanstha</strong>, offering a unique blend of fun and profound values. Winter Fest is a vibrant celebration where children are gently guided to learn the beauty of togetherness through engaging <strong>creativity</strong>, <strong>captivating stories</strong>, and the spirit of <strong>seva (selfless service)</strong>.
+            </p>
+            <p class="about-text">
+                Inspired by Pramukh Swami Maharaj's words — <em>"In the joy of others lies our own"</em> — the event helps kids grow spiritually, spread kindness, and become lights in their communities.
+            </p>
+            <div class="button-group">
+                <a href="https://www.instagram.com/bapssydney?igsh=eXdvZjFkenZhbHNl" class="button button-outline" aria-label="Instagram" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/share/1B3AC1rJBx/?mibextid=wwXIfr" class="button button-outline" aria-label="Facebook" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is BAPS -->
+    <section class="panel-section fade-up" style="background: var(--ice-mid);">
+        <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
+            <h2>What is BAPS &amp; Who Are We?</h2>
+            <p class="about-text about-text-justify">
+                Bochasanwasi Shri Akshar Purushottam Swaminarayan Sanstha (BAPS) is a socio-spiritual Hindu faith with its roots in the Vedas. It was revealed by Bhagwan Swaminarayan (1781-1830) in the late 18th century and established in 1907 by Shastriji Maharaj (1865-1951). Founded on the pillars of practical spirituality, the BAPS reaches out far and wide to address the spiritual, moral and social challenges and issues we face in our world. Its strength lies in the purity of its nature and purpose. BAPS strives to care for the world by caring for societies, families and individuals. Its universal work through a worldwide network of over 5025 centers has received many national and international awards and affiliation with the United Nations. Today, a million or more Swaminarayan followers begin their day with puja and meditation, lead upright, honest lives and donate regular hours in serving others. No Alcohol, No Addictions, No Adultery, No Meat, No Impurity of body and mind are their five lifetime vows. Such pure morality and spirituality forms the foundation of the humanitarian services performed by BAPS.
+            </p>
+            <div class="button-group">
+                <a href="https://www.baps.org/Global-Network.aspx" class="button">Global Network</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Title Band -->
+    <section class="panel-section title-band">
+        <div class="logo-main">
+            <span class="winter">WINTER</span> <span class="fest">FEST</span> <span class="year">2025</span>
+        </div>
+        <div class="divider" style="margin-top: 14px;"><span>❄</span></div>
+    </section>
+</main>
+
+<footer>
+    <a href="https://www.baps.org">
+        <img src="NEW Standard Footer-White.png" alt="BAPS Footer" class="footer-baps-img">
+    </a>
+    <a href="#" class="back-to-top" aria-label="Back to top">↑</a>
+    <p class="copyright">&copy; 2025 BAPS Swaminarayan Sanstha. All rights reserved.</p>
+</footer>
+
+<script>
+    // --- Hamburger Menu ---
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('.header-nav');
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('is-active');
+        hamburger.setAttribute('aria-expanded', navMenu.classList.contains('is-active'));
+    });
+
+    // --- Snowfall Effect ---
+    (function() {
+        const container = document.getElementById('snowfall');
+        const count = 45;
+        for (let i = 0; i < count; i++) {
+            const flake = document.createElement('div');
+            flake.classList.add('snowflake');
+            const size = Math.random() * 4 + 2;
+            flake.style.width = size + 'px';
+            flake.style.height = size + 'px';
+            flake.style.left = Math.random() * 100 + '%';
+            flake.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            flake.style.animationDelay = (Math.random() * 10) + 's';
+            container.appendChild(flake);
+        }
+    })();
+
+    // --- Scroll Fade-In ---
+    (function() {
+        const targets = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        targets.forEach(t => observer.observe(t));
+    })();
+
+    // --- Carousel ---
+    document.addEventListener('DOMContentLoaded', () => {
+        (function() {
+            const carousel = document.querySelector('.kdc-carousel');
+            if (!carousel) return;
+
+            const images = document.querySelectorAll('.kdc-carousel .carousel-img');
+            const indicators = document.querySelectorAll('.carousel-indicators .indicator');
+            let idx = 0;
+            let intervalId = null;
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            function showImage(i) {
+                images.forEach((img, j) => img.classList.toggle('active', i === j));
+                indicators.forEach((dot, j) => dot.classList.toggle('active', i === j));
+                idx = i;
+            }
+
+            function nextImage() { showImage((idx + 1) % images.length); }
+            function prevImage() { showImage((idx - 1 + images.length) % images.length); }
+
+            function startCarousel() {
+                if (intervalId) clearInterval(intervalId);
+                intervalId = setInterval(nextImage, 2500);
+            }
+
+            indicators.forEach((dot, i) => {
+                dot.addEventListener('click', () => { showImage(i); startCarousel(); });
+            });
+
+            carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, false);
+            carousel.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].clientX;
+                const delta = touchEndX - touchStartX;
+                if (delta < -50) nextImage();
+                else if (delta > 50) prevImage();
+                startCarousel();
+            }, false);
+
+            function handleResize() {
+                if (window.innerWidth <= 768) { showImage(idx); startCarousel(); }
+                else if (intervalId) clearInterval(intervalId);
+            }
+
+            window.addEventListener('resize', handleResize);
+            if (window.innerWidth <= 768) { showImage(0); startCarousel(); }
+        })();
+    });
+</script>
+
+</body>
+</html>
