@@ -22,6 +22,8 @@
             --accent-blue: #5eb8f7;
             --accent-cyan: #7ee8fa;
             --accent-gold: #f0c854;
+            --accent-purple: #a78bfa;
+            --accent-pink: #f472b6;
             --text-primary: #f0f6fb;
             --text-secondary: #b4cedf;
             --snow-particle: rgba(255,255,255,0.6);
@@ -39,41 +41,17 @@
             position: relative;
         }
 
-        /* --- Snowfall Background --- */
-        .snowfall {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
 
-        .snowflake {
-            position: absolute;
-            top: -10px;
-            background: var(--snow-particle);
-            border-radius: 50%;
-            opacity: 0;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0%   { opacity: 0; transform: translateY(-10px) rotate(0deg); }
-            10%  { opacity: 1; }
-            90%  { opacity: 0.6; }
-            100% { opacity: 0; transform: translateY(100vh) rotate(360deg); }
-        }
-
-        /* --- Frost Texture Overlay --- */
+        /* --- Colourful Background Overlay --- */
         body::before {
             content: '';
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: 
-                radial-gradient(ellipse at 20% 0%, rgba(94,184,247,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 100%, rgba(126,232,250,0.06) 0%, transparent 60%);
+            background:
+                radial-gradient(ellipse at 15% 10%, rgba(167,139,250,0.09) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 20%, rgba(94,184,247,0.1) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 85%, rgba(244,114,182,0.07) 0%, transparent 55%);
             pointer-events: none;
             z-index: 0;
         }
@@ -88,11 +66,22 @@
         }
 
         h2 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Outfit', sans-serif;
             font-size: 2.6rem;
+            font-weight: 800;
             color: var(--accent-cyan);
             margin-bottom: 40px;
             letter-spacing: 0.02em;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-gold));
+            margin: 10px auto 0;
+            border-radius: 2px;
         }
 
         /* --- Buttons --- */
@@ -109,15 +98,15 @@
             font-weight: 700;
             font-size: 1rem;
             margin-top: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 2px solid transparent;
             box-shadow: 0 4px 20px rgba(94,184,247,0.25);
             letter-spacing: 0.03em;
         }
 
         .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(94,184,247,0.4);
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 10px 32px rgba(94,184,247,0.5);
         }
 
         .button-outline {
@@ -217,13 +206,13 @@
             display: block;
         }
 
-        /* Frost glow beneath banner */
+        /* Glow beneath banner */
         .hero-banner::after {
             content: '';
             position: absolute;
             bottom: -40px; left: 10%;
             width: 80%; height: 80px;
-            background: radial-gradient(ellipse, rgba(126,232,250,0.15), transparent 70%);
+            background: radial-gradient(ellipse, rgba(94,184,247,0.22), transparent 70%);
             pointer-events: none;
         }
 
@@ -275,8 +264,8 @@
         }
 
         .grid-item img:hover {
-            transform: scale(1.04);
-            box-shadow: 0 12px 40px rgba(94,184,247,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(94,184,247,0.35), 0 0 0 3px rgba(126,232,250,0.25);
         }
 
         .attraction-title {
@@ -355,8 +344,8 @@
         }
 
         .kdc2024-grid .grid-item img:hover {
-            transform: scale(1.04);
-            box-shadow: 0 12px 40px rgba(94,184,247,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(94,184,247,0.35), 0 0 0 3px rgba(126,232,250,0.25);
         }
 
         /* --- KDC Carousel (Mobile) --- */
@@ -441,14 +430,15 @@
             font-size: 3rem;
             font-weight: 800;
             line-height: 1.25;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.04em;
+            text-shadow: 0 4px 24px rgba(94,184,247,0.3);
         }
 
         .logo-main .winter { color: var(--accent-blue); }
         .logo-main .fest { color: var(--accent-cyan); }
         .logo-main .year { color: var(--accent-gold); }
 
-        /* --- Snowflake Dividers --- */
+        /* --- Dividers --- */
         .divider {
             display: flex;
             align-items: center;
@@ -579,9 +569,6 @@
 </head>
 <body>
 
-<!-- Snowfall particles -->
-<div class="snowfall" id="snowfall"></div>
-
 <header>
     <a href="https://www.baps.org">
         <img src="Baps_logo-WHITE.webp" alt="BAPS Logo" class="header-logo-img">
@@ -604,12 +591,12 @@
     <div style="background: linear-gradient(135deg, #0d2b4e 0%, #153d6b 40%, #1a4a7a 70%, #0b1e3d 100%); padding: 80px 20px; position: relative; overflow: hidden;">
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 30% 40%, rgba(126,232,250,0.12), transparent 50%), radial-gradient(circle at 70% 60%, rgba(94,184,247,0.1), transparent 50%);"></div>
         <div style="position: relative; z-index: 1;">
-            <div style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent-cyan); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px;">BAPS Sydney Presents</div>
+            <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--accent-cyan); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 16px;">BAPS Sydney Presents</div>
             <div class="logo-main" style="font-size: clamp(2.4rem, 6vw, 4.2rem); margin-bottom: 12px;">
                 <span class="winter">WINTER</span> <span class="fest">FEST</span> <span class="year">2025</span>
             </div>
-            <div class="divider"><span>❄</span></div>
-            <p style="font-size: 1.15rem; color: var(--frost-light); margin-top: 16px; letter-spacing: 0.08em;">Sydney&rsquo;s Coolest Family Celebration</p>
+            <div class="divider"><span>✨</span></div>
+            <p style="font-size: 1.15rem; color: var(--frost-light); margin-top: 16px; letter-spacing: 0.08em;">Sydney&rsquo;s Most Exciting Family Festival!</p>
         </div>
     </div>
 </div>
@@ -619,10 +606,10 @@
     <section class="container intro-section fade-up">
         <h2>What is Winter Fest?</h2>
         <p>
-            Embrace the magic of the winter season at the <strong style="color: var(--frost-white);">BAPS Winter Fest</strong> — an unforgettable family event rooted in celebrating community, culture, and the warmth of togetherness even on the coolest of days.
+            Step into the magic at the <strong style="color: var(--frost-white);">BAPS Winter Fest</strong> — an unforgettable family event rooted in celebrating community, culture, and the warmth of togetherness that brings everyone together.
         </p>
         <p>
-            Prepare for a day brimming with engaging games, enriching experiences, and exciting winter-themed activities that connect your family with joy, laughter, and the spirit of unity. Whether you're deeply connected to Indian traditions or simply eager to enjoy a wonderful day out.
+            Prepare for a day brimming with engaging games, enriching experiences, and exciting activities that connect your family with joy, laughter, and the spirit of unity. Whether you're deeply connected to Indian traditions or simply eager to enjoy a wonderful day out.
         </p>
         <p class="highlight" style="color: var(--accent-cyan); font-weight: 700;">
             We are delighted to welcome you to Winter Fest 2025.
@@ -658,7 +645,7 @@
                 <p class="attraction-title">Food Stalls</p>
             </div>
         </div>
-        <p class="section-footer-text">THERE IS SOMETHING FOR EVERYONE TO ENJOY! ❄</p>
+        <p class="section-footer-text">THERE IS SOMETHING FOR EVERYONE TO ENJOY! ✨</p>
     </section>
 
     <!-- Registration -->
@@ -726,7 +713,7 @@
     <!-- About BAPS Winter Fest -->
     <section class="panel-section fade-up">
         <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
-            <h2>BAPS Winter Fest: Warmth in the Cold</h2>
+            <h2>BAPS Winter Fest: Fun for Everyone!</h2>
             <p class="about-text">
                 The Winter Fest is proudly <strong>hosted by BAPS Swaminarayan Sanstha</strong>, offering a unique blend of fun and profound values. Winter Fest is a vibrant celebration where children are gently guided to learn the beauty of togetherness through engaging <strong>creativity</strong>, <strong>captivating stories</strong>, and the spirit of <strong>seva (selfless service)</strong>.
             </p>
@@ -766,7 +753,7 @@
         <div class="logo-main">
             <span class="winter">WINTER</span> <span class="fest">FEST</span> <span class="year">2025</span>
         </div>
-        <div class="divider" style="margin-top: 14px;"><span>❄</span></div>
+        <div class="divider" style="margin-top: 14px;"><span>✨</span></div>
     </section>
 </main>
 
@@ -786,23 +773,6 @@
         navMenu.classList.toggle('is-active');
         hamburger.setAttribute('aria-expanded', navMenu.classList.contains('is-active'));
     });
-
-    // --- Snowfall Effect ---
-    (function() {
-        const container = document.getElementById('snowfall');
-        const count = 45;
-        for (let i = 0; i < count; i++) {
-            const flake = document.createElement('div');
-            flake.classList.add('snowflake');
-            const size = Math.random() * 4 + 2;
-            flake.style.width = size + 'px';
-            flake.style.height = size + 'px';
-            flake.style.left = Math.random() * 100 + '%';
-            flake.style.animationDuration = (Math.random() * 8 + 6) + 's';
-            flake.style.animationDelay = (Math.random() * 10) + 's';
-            container.appendChild(flake);
-        }
-    })();
 
     // --- Scroll Fade-In ---
     (function() {
