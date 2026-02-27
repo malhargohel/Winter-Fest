@@ -223,6 +223,19 @@
             display: block;
         }
 
+        .hero-banner .mobile-logo {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner .desktop-banner {
+                display: none;
+            }
+            .hero-banner .mobile-logo {
+                display: block;
+            }
+        }
+
         .hero-banner::after {
             content: '';
             position: absolute;
@@ -618,13 +631,14 @@
 
 <!-- Hero Banner Placeholder -->
 <div class="hero-banner">
-    <img src="KSC26 Banner.jpg" alt="Kids Sanskar Carnival 2026 Banner">
+    <img class="desktop-banner" src="KSC26 Banner.jpg" alt="Kids Sanskar Carnival 2026 Banner">
+    <img class="mobile-logo" src="Logo.png" alt="Kids Sanskar Carnival Logo">
 </div>
 
 <main>
     <!-- What is Kids Sanskar Carnival? -->
     <section class="container intro-section fade-up">
-        <h2>What is Kids Sanskar Carnival?</h2>
+        <h2>What is the Kids Sanskar Carnival?</h2>
         <p>
             Step into the magic at the <strong style="color: var(--accent-blue);">BAPS Kids Sanskar Carnival</strong> - an unforgettable family event rooted in celebrating community, culture, and the warmth of togetherness that brings everyone together.
         </p>
@@ -646,7 +660,7 @@
             </div>
             <div class="grid-item">
                 <img src="BouncyCastle.jpg" alt="Jumping Castle">
-                <p class="attraction-title">Jumping Castle</p>
+                <p class="attraction-title">Jumping Castles</p>
             </div>
             <div class="grid-item">
                 <img src="Att_Prasang.jpg" alt="Engaging Exhibitions">
