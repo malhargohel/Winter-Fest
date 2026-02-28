@@ -245,6 +245,53 @@
             pointer-events: none;
         }
 
+        /* --- Hero Event Details Bar --- */
+        .hero-event-details {
+            background: linear-gradient(135deg, #1e6fd9 0%, #0ea5e9 100%);
+            padding: 22px 24px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border-bottom: 4px solid var(--accent-yellow);
+        }
+
+        .hero-event-details .detail-highlight {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 900;
+            margin: 4px 0;
+            display: inline-block;
+        }
+
+        .hero-event-details .detail-separator {
+            color: rgba(255,255,255,0.5);
+            margin: 0 12px;
+            font-size: 1.1rem;
+        }
+
+        .hero-event-details a {
+            display: block;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 4px;
+            margin-top: 8px;
+            transition: color 0.3s;
+        }
+
+        .hero-event-details a:hover { color: var(--accent-yellow); }
+
+        @media (min-width: 769px) {
+            .hero-event-details .detail-separator { display: block; margin: 4px 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-event-details .detail-highlight { font-size: 1.1rem; }
+            .hero-event-details a { font-size: 0.95rem; }
+        }
+
         /* --- Intro Section --- */
         .intro-section {
             padding-top: 50px;
@@ -632,7 +679,17 @@
 <!-- Hero Banner Placeholder -->
 <div class="hero-banner">
     <img class="desktop-banner" src="KSC26 Banner.jpg" alt="Kids Sanskar Carnival 2026 Banner">
-    <img class="mobile-logo" src="KSC26 Banner.jpg" alt="Kids Sanskar Carnival 2026 Banner">
+    <img class="mobile-logo" src="Logo.png" alt="Kids Sanskar Carnival 2026 Logo">
+</div>
+
+<!-- Event Quick Details -->
+<div class="hero-event-details">
+    <span class="detail-highlight">Saturday 18th April 2026</span>
+    <span class="detail-separator"></span>
+    <span class="detail-highlight">1:30pm – 7:30pm</span>
+    <a href="https://www.google.com/maps?q=BAPS+Swaminarayan+Hindu+Mandir+230+Aldington+Road+Kemps+Creek+NSW+2178" target="_blank" rel="noopener">
+        BAPS Swaminarayan Hindu Mandir &amp; Cultural Precinct, 230 Aldington Road, Kemps Creek NSW 2178
+    </a>
 </div>
 
 <main>
@@ -687,14 +744,7 @@
     <section id="tickets" class="panel-section fade-up">
         <h2>REGISTRATION</h2>
         <div class="event-details">
-            <p class="detail-highlight">Friday 18th April 2026</p>
-            <p class="detail-highlight">1:30pm - 7:30pm</p>
-            <a href="https://www.google.com/maps?q=BAPS+Swaminarayan+Hindu+Mandir+230+Aldington+Road+Kemps+Creek+NSW+2178" target="_blank" rel="noopener">
-                BAPS Swaminarayan Hindu Mandir &amp; Cultural Precinct<br>
-                230 Aldington Road<br>
-                Kemps Creek NSW 2178
-            </a>
-            <p style="margin-top: 16px;">Kids Entry Fee - $5.00</p>
+            <p style="margin-top: 16px;">Kids Entry Fee - $5.00 (Includes Ride Passes)</p>
             <p>Adults Entry Fee - $5.00</p>
         </div>
         <a href="https://payment.bapsanz.org.au/kids-sanskar-carnival-2026" class="button">REGISTER NOW</a>
