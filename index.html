@@ -284,12 +284,23 @@
         .hero-event-details a:hover { color: var(--accent-yellow); }
 
         @media (min-width: 769px) {
+            .hero-event-details a { display: flex; flex-direction: column; align-items: center; }
+            .addr-break { display: none; }
+        }
+
+        @media (min-width: 769px) {
             .hero-event-details .detail-separator { display: block; margin: 4px 0; }
         }
 
         @media (max-width: 768px) {
-            .hero-event-details .detail-highlight { font-size: 1.1rem; }
-            .hero-event-details a { font-size: 0.95rem; }
+            .hero-event-details {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-event-details .detail-separator { display: none; }
+            .hero-event-details .detail-highlight { font-size: 1.1rem; display: block; text-align: center; }
+            .hero-event-details a { font-size: 0.95rem; text-align: center; }
         }
 
         /* --- Intro Section --- */
@@ -688,7 +699,7 @@
     <span class="detail-separator"></span>
     <span class="detail-highlight">1:30pm – 7:30pm</span>
     <a href="https://www.google.com/maps?q=BAPS+Swaminarayan+Hindu+Mandir+230+Aldington+Road+Kemps+Creek+NSW+2178" target="_blank" rel="noopener">
-        BAPS Swaminarayan Hindu Mandir &amp; Cultural Precinct, 230 Aldington Road, Kemps Creek NSW 2178
+        <span class="addr-line1">BAPS Swaminarayan Hindu Mandir &amp; Cultural Precinct,</span><span class="addr-break"> </span><span class="addr-line2">230 Aldington Road, Kemps Creek NSW 2178</span>
     </a>
 </div>
 
